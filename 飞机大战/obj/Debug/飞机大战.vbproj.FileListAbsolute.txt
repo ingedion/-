@@ -1,0 +1,12 @@
+G:\Documents\software_tec\大作业\飞机大战\飞机大战\飞机大战\bin\Debug\飞机大战.exe
+G:\Documents\software_tec\大作业\飞机大战\飞机大战\飞机大战\bin\Debug\飞机大战.pdb
+G:\Documents\software_tec\大作业\飞机大战\飞机大战\飞机大战\bin\Debug\飞机大战.xml
+G:\Documents\software_tec\大作业\飞机大战\飞机大战\飞机大战\obj\Debug\飞机大战.vbprojResolveAssemblyReference.cache
+G:\Documents\software_tec\大作业\飞机大战\飞机大战\飞机大战\obj\Debug\飞机大战.Form1.resources
+G:\Documents\software_tec\大作业\飞机大战\飞机大战\飞机大战\obj\Debug\飞机大战.Form2.resources
+G:\Documents\software_tec\大作业\飞机大战\飞机大战\飞机大战\obj\Debug\飞机大战.Resources.resources
+G:\Documents\software_tec\大作业\飞机大战\飞机大战\飞机大战\obj\Debug\飞机大战.vbproj.GenerateResource.Cache
+G:\Documents\software_tec\大作业\飞机大战\飞机大战\飞机大战\obj\Debug\飞机大战.vbproj.CoreCompileInputs.cache
+G:\Documents\software_tec\大作业\飞机大战\飞机大战\飞机大战\obj\Debug\飞机大战.exe
+G:\Documents\software_tec\大作业\飞机大战\飞机大战\飞机大战\obj\Debug\飞机大战.xml
+G:\Documents\software_tec\大作业\飞机大战\飞机大战\飞机大战\obj\Debug\飞机大战.pdb
