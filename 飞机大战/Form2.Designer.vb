@@ -38,6 +38,13 @@ Partial Class Form2
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Open_Fire = New System.Windows.Forms.Timer(Me.components)
         Me.Bullet_Move = New System.Windows.Forms.Timer(Me.components)
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.HP = New System.Windows.Forms.ProgressBar()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Boss = New System.Windows.Forms.PictureBox()
+        Me.BossHP = New System.Windows.Forms.ProgressBar()
+        Me.Boss_Move = New System.Windows.Forms.Timer(Me.components)
         CType(Me.Enemy0, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Bullet0, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Bullet1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -46,6 +53,7 @@ Partial Class Form2
         CType(Me.Enemy2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Bullet2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Player, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Boss, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Enemy0
@@ -125,7 +133,7 @@ Partial Class Form2
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("楷体", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.Label1.Location = New System.Drawing.Point(16, 741)
+        Me.Label1.Location = New System.Drawing.Point(16, 801)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(69, 20)
         Me.Label1.TabIndex = 8
@@ -135,7 +143,7 @@ Partial Class Form2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("楷体", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.Label2.Location = New System.Drawing.Point(74, 741)
+        Me.Label2.Location = New System.Drawing.Point(74, 801)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(39, 20)
         Me.Label2.TabIndex = 9
@@ -147,11 +155,76 @@ Partial Class Form2
         'Bullet_Move
         '
         '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("楷体", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.Label3.Location = New System.Drawing.Point(16, 829)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(69, 20)
+        Me.Label3.TabIndex = 10
+        Me.Label3.Text = "得分："
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("楷体", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.Label4.Location = New System.Drawing.Point(74, 829)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(19, 20)
+        Me.Label4.TabIndex = 11
+        Me.Label4.Text = "0"
+        '
+        'HP
+        '
+        Me.HP.BackColor = System.Drawing.Color.White
+        Me.HP.ForeColor = System.Drawing.Color.DimGray
+        Me.HP.Location = New System.Drawing.Point(71, 775)
+        Me.HP.Name = "HP"
+        Me.HP.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.HP.Size = New System.Drawing.Size(130, 18)
+        Me.HP.TabIndex = 12
+        Me.HP.Value = 100
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("楷体", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.Label5.Location = New System.Drawing.Point(16, 773)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(49, 20)
+        Me.Label5.TabIndex = 13
+        Me.Label5.Text = "HP："
+        '
+        'Boss
+        '
+        Me.Boss.BackColor = System.Drawing.SystemColors.Control
+        Me.Boss.Location = New System.Drawing.Point(280, 12)
+        Me.Boss.Name = "Boss"
+        Me.Boss.Size = New System.Drawing.Size(200, 250)
+        Me.Boss.TabIndex = 14
+        Me.Boss.TabStop = False
+        '
+        'BossHP
+        '
+        Me.BossHP.Location = New System.Drawing.Point(299, 12)
+        Me.BossHP.Maximum = 500
+        Me.BossHP.Name = "BossHP"
+        Me.BossHP.Size = New System.Drawing.Size(161, 23)
+        Me.BossHP.TabIndex = 15
+        Me.BossHP.Value = 500
+        '
         'Form2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(782, 853)
+        Me.Controls.Add(Me.BossHP)
+        Me.Controls.Add(Me.Boss)
+        Me.Controls.Add(Me.Label5)
+        Me.Controls.Add(Me.HP)
+        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Player)
@@ -162,7 +235,9 @@ Partial Class Form2
         Me.Controls.Add(Me.Bullet1)
         Me.Controls.Add(Me.Bullet0)
         Me.Controls.Add(Me.Enemy0)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "Form2"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "飞机大战"
         CType(Me.Enemy0, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Bullet0, System.ComponentModel.ISupportInitialize).EndInit()
@@ -172,6 +247,7 @@ Partial Class Form2
         CType(Me.Enemy2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Bullet2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Player, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Boss, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -191,4 +267,11 @@ Partial Class Form2
     Friend WithEvents Label2 As Label
     Friend WithEvents Open_Fire As Timer
     Friend WithEvents Bullet_Move As Timer
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents HP As ProgressBar
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Boss As PictureBox
+    Friend WithEvents BossHP As ProgressBar
+    Friend WithEvents Boss_Move As Timer
 End Class

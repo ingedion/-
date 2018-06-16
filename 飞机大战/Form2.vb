@@ -4,11 +4,13 @@ Public Class Form2
     '-------------------初始化--------------------
     Dim x(0 To 2), y(0 To 2) As Integer                     '敌机移动参数
     Dim P_Up, P_Down, P_Left, P_Right As Boolean '玩家控制参数
+    Dim v As Integer 'Boss飞行参数
     Dim Fire As Boolean '开火
     Dim TimeList As New ArrayList  '时间队列
     Dim Enemy As New ArrayList '敌机队列
     Dim Bullet As New ArrayList '子弹队列
-    Dim time As Int32
+    Dim Time As Int32
+    Dim Score As Integer
     Private Sub BuildTimeArray()
         TimeList.Add(PLayer_Move)
         TimeList.Add(Open_Fire)
@@ -38,6 +40,7 @@ Public Class Form2
     End Sub
     Private Sub Form2_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Player.Image = Image.FromFile(Application.StartupPath + "\draw\f1.jpg")
+        Boss.Image = Image.FromFile(Application.StartupPath + "\draw\boss.jpg")
         Enemy0.Image = Image.FromFile(Application.StartupPath + "\draw\f2.jpg")
         Enemy1.Image = Image.FromFile(Application.StartupPath + "\draw\f2.jpg")
         Enemy2.Image = Image.FromFile(Application.StartupPath + "\draw\f2.jpg")
@@ -59,6 +62,8 @@ Public Class Form2
         For i = 0 To 2 Step 1
             Enemy(i).visible = False
         Next
+        Boss.Visible = False
+        BossHP.Visible = False
         'Enemy0.Visible = False
         'Enemy1.Visible = False
         'Enemy2.Visible = False
@@ -76,8 +81,11 @@ Public Class Form2
         Enemy_Move.Enabled = True '敌机可动
         Enemy_Move.Interval = 10
         Enemy_Reborn.Enabled = True '敌机刷新
-        Enemy_Reborn.Interval = 100
-        time = 100
+        Enemy_Reborn.Interval = 1000
+        Boss_Move.Enabled = False 'Boss开局不存在
+        Boss_Move.Interval = 1
+        Time = 20
+        Score = 0
     End Sub
     '-----------------事件捕捉----------------------
 
@@ -164,10 +172,16 @@ Public Class Form2
             dx = System.Math.Abs(ex(i) - px)
             dy = System.Math.Abs(ey(i) - py)
             If (System.Math.Sqrt(dx * dx + dy * dy)) < 100 And Enemy(i).visible Then
-                'Exitgame()
+                HP.Value -= 10
                 Enemy(i).visible = False
+                If HP.Value <= 0 Then
+                    'Exitgame()
+                End If
             End If
         Next
+
+        Label4.Text = Score
+        Label2.Text = Time
     End Sub
 
     '敌机飞行
@@ -194,26 +208,27 @@ Public Class Form2
 
     '刷新敌机
     Private Sub Enemy_Reborn_Tick(sender As Object, e As EventArgs) Handles Enemy_Reborn.Tick
-        If Enemy0.Visible = False Then
-            Enemy0.Visible = True
-            Enemy0.Top = 0 - Enemy0.Height
-            Enemy0.Left = Int(Rnd(1) * 1000) Mod Width
-            x(0) = Int(Rnd(1) * 100) Mod 10 - 5
-            y(0) = Int(Rnd(1) * 100) Mod 7
+        Dim i As Integer
+        For i = 0 To 2 Step 1
+            If Enemy(i).visible = False Then
+                Enemy(i).Top = 0 - Enemy0.Height
+                Enemy(i).Left = Int(Rnd(1) * 1000) Mod Width
+                Enemy(i).Visible = True
+                x(i) = Int(Rnd(2) * 100) Mod 10 - 5
+                y(i) = 1 + Int(Rnd(2) * 100) Mod 6
+            End If
+        Next
+
+        If Time > 0 Then
+            Time -= 1
         End If
-        If Enemy1.Visible = False Then
-            Enemy1.Visible = True
-            Enemy1.Top = 0 - Enemy1.Height
-            Enemy1.Left = Int(Rnd(1) * 1000) Mod Width
-            x(1) = Int(Rnd(1) * 100) Mod 10 - 5
-            y(1) = Int(Rnd(1) * 100) Mod 7
-        End If
-        If Enemy2.Visible = False Then
-            Enemy2.Visible = True
-            Enemy2.Top = 0 - Enemy2.Height
-            Enemy2.Left = Int(Rnd(1) * 1000) Mod Width
-            x(2) = Int(Rnd(1) * 100) Mod 10 - 5
-            y(2) = Int(Rnd(1) * 100) Mod 7
+
+        If Time = 0 Then
+            Enemy_Reborn.Enabled = False
+            Boss_Move.Enabled = True
+            Boss.Visible = True
+            BossHP.Visible = True
+            v = 2
         End If
     End Sub
 
@@ -254,9 +269,10 @@ Public Class Form2
                 Dim dy As Integer
                 dx = bx(i) - ex(j)
                 dy = by(i) - ey(j)
-                If (System.Math.Sqrt(dx * dx + dy * dy) < 70) Then
+                If (System.Math.Sqrt(dx * dx + dy * dy) < 70) And (Bullet(i).visible = True) Then
                     Bullet(i).visible = False
                     Enemy(j).visible = False
+                    Score += 1
                 End If
             Next
         Next
@@ -269,5 +285,37 @@ Public Class Form2
                 End If
             End If
         Next
+    End Sub
+    'Boss飞行
+    Private Sub Boss_Move_Tick(sender As Object, e As EventArgs) Handles Boss_Move.Tick
+        If Boss.Visible = True Then
+            If BossHP.Value = 0 Then
+                Boss.Visible = False
+                BossHP.Visible = False
+            End If
+            Boss.Left = Boss.Left + v
+            If Boss.Left > Width - Boss.Width Then
+                Boss.Left = Width - Boss.Width
+                v = -v
+            End If
+            If Boss.Left < 0 Then
+                Boss.Left = 0
+                v = -v
+            End If
+
+            BossHP.Left = Boss.Left + (Boss.Width - BossHP.Width) / 2
+
+            Dim i As Integer
+            For i = 0 To 3 Step 1
+                If Bullet(i).Visible = True Then
+                    If (Bullet(i).Top <= Boss.Top + Boss.Height) And (Bullet(i).Left + Bullet(i).Width > Boss.Left) And (Bullet(i).Left < Boss.Left + Boss.Width) Then
+                        Bullet(i).Visible = False
+                        If BossHP.Value > 0 Then
+                            BossHP.Value -= 20
+                        End If
+                    End If
+                End If
+            Next
+        End If
     End Sub
 End Class
