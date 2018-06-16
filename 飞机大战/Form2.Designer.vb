@@ -45,6 +45,9 @@ Partial Class Form2
         Me.Boss = New System.Windows.Forms.PictureBox()
         Me.BossHP = New System.Windows.Forms.ProgressBar()
         Me.Boss_Move = New System.Windows.Forms.Timer(Me.components)
+        Me.Boss_Laser1 = New System.Windows.Forms.PictureBox()
+        Me.Boss_Laser2 = New System.Windows.Forms.PictureBox()
+        Me.Raser = New System.Windows.Forms.Timer(Me.components)
         CType(Me.Enemy0, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Bullet0, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Bullet1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -54,11 +57,13 @@ Partial Class Form2
         CType(Me.Bullet2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Player, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Boss, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Boss_Laser1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Boss_Laser2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Enemy0
         '
-        Me.Enemy0.Location = New System.Drawing.Point(116, 63)
+        Me.Enemy0.Location = New System.Drawing.Point(671, 27)
         Me.Enemy0.Name = "Enemy0"
         Me.Enemy0.Size = New System.Drawing.Size(100, 120)
         Me.Enemy0.TabIndex = 0
@@ -90,7 +95,7 @@ Partial Class Form2
         '
         'Enemy1
         '
-        Me.Enemy1.Location = New System.Drawing.Point(280, 63)
+        Me.Enemy1.Location = New System.Drawing.Point(539, 170)
         Me.Enemy1.Name = "Enemy1"
         Me.Enemy1.Size = New System.Drawing.Size(100, 120)
         Me.Enemy1.TabIndex = 4
@@ -98,7 +103,7 @@ Partial Class Form2
         '
         'Enemy2
         '
-        Me.Enemy2.Location = New System.Drawing.Point(441, 63)
+        Me.Enemy2.Location = New System.Drawing.Point(539, 27)
         Me.Enemy2.Name = "Enemy2"
         Me.Enemy2.Size = New System.Drawing.Size(100, 120)
         Me.Enemy2.TabIndex = 5
@@ -199,7 +204,7 @@ Partial Class Form2
         'Boss
         '
         Me.Boss.BackColor = System.Drawing.SystemColors.Control
-        Me.Boss.Location = New System.Drawing.Point(280, 12)
+        Me.Boss.Location = New System.Drawing.Point(279, 12)
         Me.Boss.Name = "Boss"
         Me.Boss.Size = New System.Drawing.Size(200, 250)
         Me.Boss.TabIndex = 14
@@ -207,18 +212,41 @@ Partial Class Form2
         '
         'BossHP
         '
-        Me.BossHP.Location = New System.Drawing.Point(299, 12)
+        Me.BossHP.Location = New System.Drawing.Point(300, 12)
         Me.BossHP.Maximum = 500
         Me.BossHP.Name = "BossHP"
         Me.BossHP.Size = New System.Drawing.Size(161, 23)
         Me.BossHP.TabIndex = 15
         Me.BossHP.Value = 500
         '
+        'Boss_Move
+        '
+        '
+        'Boss_Laser1
+        '
+        Me.Boss_Laser1.BackColor = System.Drawing.Color.Yellow
+        Me.Boss_Laser1.Location = New System.Drawing.Point(300, 188)
+        Me.Boss_Laser1.Name = "Boss_Laser1"
+        Me.Boss_Laser1.Size = New System.Drawing.Size(40, 633)
+        Me.Boss_Laser1.TabIndex = 16
+        Me.Boss_Laser1.TabStop = False
+        '
+        'Boss_Laser2
+        '
+        Me.Boss_Laser2.BackColor = System.Drawing.Color.Yellow
+        Me.Boss_Laser2.Location = New System.Drawing.Point(421, 188)
+        Me.Boss_Laser2.Name = "Boss_Laser2"
+        Me.Boss_Laser2.Size = New System.Drawing.Size(40, 633)
+        Me.Boss_Laser2.TabIndex = 17
+        Me.Boss_Laser2.TabStop = False
+        '
         'Form2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(782, 853)
+        Me.Controls.Add(Me.Boss_Laser2)
+        Me.Controls.Add(Me.Boss_Laser1)
         Me.Controls.Add(Me.BossHP)
         Me.Controls.Add(Me.Boss)
         Me.Controls.Add(Me.Label5)
@@ -236,9 +264,10 @@ Partial Class Form2
         Me.Controls.Add(Me.Bullet0)
         Me.Controls.Add(Me.Enemy0)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.MaximizeBox = False
         Me.Name = "Form2"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "飞机大战"
+        Me.Text = "战机传说"
         CType(Me.Enemy0, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Bullet0, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Bullet1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -248,6 +277,8 @@ Partial Class Form2
         CType(Me.Bullet2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Player, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Boss, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Boss_Laser1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Boss_Laser2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -274,4 +305,7 @@ Partial Class Form2
     Friend WithEvents Boss As PictureBox
     Friend WithEvents BossHP As ProgressBar
     Friend WithEvents Boss_Move As Timer
+    Friend WithEvents Boss_Laser1 As PictureBox
+    Friend WithEvents Boss_Laser2 As PictureBox
+    Friend WithEvents Raser As Timer
 End Class

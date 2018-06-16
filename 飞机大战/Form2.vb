@@ -11,12 +11,38 @@ Public Class Form2
     Dim Bullet As New ArrayList '子弹队列
     Dim Time As Int32
     Dim Score As Integer
+    Private Sub InitPlayer()
+        Player.Image = Image.FromFile(Application.StartupPath + "\draw\f1.jpg")
+        Player.Location = New Point(260, 560)
+        HP.Value = 100
+        P_Up = False
+        P_Down = False
+        P_Left = False
+        P_Right = False
+        Fire = False
+        PLayer_Move.Enabled = True '可移动
+        PLayer_Move.Interval = 1
+        Open_Fire.Enabled = True      '可开火
+        Open_Fire.Interval = 200
+    End Sub
+    Private Sub InitBoss()
+        Boss.Image = Image.FromFile(Application.StartupPath + "\draw\boss.jpg")
+        Boss_Move.Enabled = False 'Boss开局不存在
+        Boss_Move.Interval = 1
+        Boss.Visible = False
+        BossHP.Visible = False
+        BossHP.Value = 500
+        Boss_Laser1.Visible = False
+        Boss_Laser2.Visible = False
+    End Sub
     Private Sub BuildTimeArray()
         TimeList.Add(PLayer_Move)
         TimeList.Add(Open_Fire)
         TimeList.Add(Enemy_Move)
         TimeList.Add(Enemy_Reborn)
         TimeList.Add(Bullet_Move)
+        TimeList.Add(Boss_Move)
+        TimeList.Add(Raser)
     End Sub
     Private Sub BuildEnemyArray()
         Enemy.Add(Enemy0)
@@ -29,18 +55,30 @@ Public Class Form2
         Bullet.Add(Bullet2)
         Bullet.Add(Bullet3)
     End Sub
-    Public Sub Exitgame() '退出游戏
+    Public Sub Lose() '退出游戏
+        Pause_or_go()
+        Me.Hide()
+        MsgBox("挑战失败!")
+        Me.Close()
+    End Sub
+    Public Sub Win() '退出游戏
+        Pause_or_go()
+        Me.Hide()
+        MsgBox("你赢了!")
         Me.Close()
     End Sub
     Private Sub Pause_or_go() '暂停和继续
         Dim i As Integer
-        For i = 0 To 4 Step 1
+        For i = 0 To 6 Step 1
             TimeList(i).Enabled = Not (TimeList(i).Enabled)
         Next
     End Sub
     Private Sub Form2_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Player.Image = Image.FromFile(Application.StartupPath + "\draw\f1.jpg")
-        Boss.Image = Image.FromFile(Application.StartupPath + "\draw\boss.jpg")
+        BuildTimeArray()
+        BuildBulletArray()
+        BuildEnemyArray()
+        InitPlayer()
+        InitBoss()
         Enemy0.Image = Image.FromFile(Application.StartupPath + "\draw\f2.jpg")
         Enemy1.Image = Image.FromFile(Application.StartupPath + "\draw\f2.jpg")
         Enemy2.Image = Image.FromFile(Application.StartupPath + "\draw\f2.jpg")
@@ -48,9 +86,6 @@ Public Class Form2
         Bullet1.Image = Image.FromFile(Application.StartupPath + "\draw\z1.jpg")
         Bullet2.Image = Image.FromFile(Application.StartupPath + "\draw\z1.jpg")
         Bullet3.Image = Image.FromFile(Application.StartupPath + "\draw\z1.jpg")
-        BuildTimeArray()
-        BuildBulletArray()
-        BuildEnemyArray()
         Dim i As Integer
         For i = 0 To 3 Step 1
             Bullet(i).Visible = False
@@ -62,29 +97,20 @@ Public Class Form2
         For i = 0 To 2 Step 1
             Enemy(i).visible = False
         Next
-        Boss.Visible = False
-        BossHP.Visible = False
+
         'Enemy0.Visible = False
         'Enemy1.Visible = False
         'Enemy2.Visible = False
-        P_Up = False
-        P_Down = False
-        P_Left = False
-        P_Right = False
-        Fire = False
-        PLayer_Move.Enabled = True '可移动
-        PLayer_Move.Interval = 1
-        Open_Fire.Enabled = True      '可开火
-        Open_Fire.Interval = 200
         Bullet_Move.Enabled = True '子弹可动
         Bullet_Move.Interval = 1
+        Raser.Enabled = False
+        Raser.Interval = 10
         Enemy_Move.Enabled = True '敌机可动
         Enemy_Move.Interval = 10
         Enemy_Reborn.Enabled = True '敌机刷新
         Enemy_Reborn.Interval = 1000
-        Boss_Move.Enabled = False 'Boss开局不存在
-        Boss_Move.Interval = 1
-        Time = 20
+
+        Time = 0
         Score = 0
     End Sub
     '-----------------事件捕捉----------------------
@@ -158,6 +184,10 @@ Public Class Form2
             End If
         End If
 
+        If HP.Value <= 0 Then
+            Lose()
+        End If
+
         Dim px As Integer
         Dim py As Integer
         Dim dx As Integer
@@ -172,11 +202,12 @@ Public Class Form2
             dx = System.Math.Abs(ex(i) - px)
             dy = System.Math.Abs(ey(i) - py)
             If (System.Math.Sqrt(dx * dx + dy * dy)) < 100 And Enemy(i).visible Then
-                HP.Value -= 10
-                Enemy(i).visible = False
-                If HP.Value <= 0 Then
-                    'Exitgame()
+                If HP.Value - 10 > 0 Then
+                    HP.Value -= 10
+                Else
+                    HP.Value = 0
                 End If
+                Enemy(i).visible = False
             End If
         Next
 
@@ -219,15 +250,16 @@ Public Class Form2
             End If
         Next
 
-        If Time > 0 Then
-            Time -= 1
-        End If
+        Time += 1
 
-        If Time = 0 Then
-            Enemy_Reborn.Enabled = False
+
+        If Time Mod 60 = 0 And Boss.Visible = False Then
+            'Enemy_Reborn.Enabled = False
+            InitBoss()
             Boss_Move.Enabled = True
             Boss.Visible = True
             BossHP.Visible = True
+            Raser.Enabled = True
             v = 2
         End If
     End Sub
@@ -269,7 +301,7 @@ Public Class Form2
                 Dim dy As Integer
                 dx = bx(i) - ex(j)
                 dy = by(i) - ey(j)
-                If (System.Math.Sqrt(dx * dx + dy * dy) < 70) And (Bullet(i).visible = True) Then
+                If (System.Math.Sqrt(dx * dx + dy * dy) < 70) And (Bullet(i).visible = True) And Enemy(j).visible = True Then
                     Bullet(i).visible = False
                     Enemy(j).visible = False
                     Score += 1
@@ -292,6 +324,8 @@ Public Class Form2
             If BossHP.Value = 0 Then
                 Boss.Visible = False
                 BossHP.Visible = False
+                Raser.Enabled = False
+                Win()
             End If
             Boss.Left = Boss.Left + v
             If Boss.Left > Width - Boss.Width Then
@@ -304,6 +338,8 @@ Public Class Form2
             End If
 
             BossHP.Left = Boss.Left + (Boss.Width - BossHP.Width) / 2
+            Boss_Laser1.Left = Boss.Left + 10
+            Boss_Laser2.Left = Boss.Left + Boss.Width - Boss_Laser2.Width - 10
 
             Dim i As Integer
             For i = 0 To 3 Step 1
@@ -316,6 +352,28 @@ Public Class Form2
                     End If
                 End If
             Next
+        End If
+    End Sub
+
+    Private Sub Raser_Tick(sender As Object, e As EventArgs) Handles Raser.Tick
+        If (Boss.Left > 300 And Boss.Left < 400 And v > 0) Or (Boss.Left > 50 And Boss.Left < 150 And v < 0) Then
+            Boss_Laser1.Visible = True
+            Boss_Laser2.Visible = True
+        Else
+            Boss_Laser1.Visible = False
+            Boss_Laser2.Visible = False
+        End If
+
+        If (Boss_Laser1.Left < Player.Left + Player.Width And Boss_Laser1.Left + Boss_Laser1.Width > Player.Left) And Boss_Laser1.Visible Then
+            If HP.Value > 0 Then
+                HP.Value -= 1
+            End If
+        End If
+
+        If (Boss_Laser2.Left < Player.Left + Player.Width And Boss_Laser2.Left + Boss_Laser2.Width > Player.Left) And Boss_Laser2.Visible Then
+            If HP.Value > 0 Then
+                HP.Value -= 1
+            End If
         End If
     End Sub
 End Class
