@@ -11,7 +11,7 @@ Public Class Form2
     Dim Bullet As New ArrayList '子弹队列
     Dim Time As Int32
     Dim Score As Integer
-    Private Sub InitPlayer()
+    Public Sub InitPlayer() '玩家初始化
         Player.Image = Image.FromFile(Application.StartupPath + "\draw\f1.jpg")
         Player.Location = New Point(260, 560)
         HP.Value = 100
@@ -25,7 +25,7 @@ Public Class Form2
         Open_Fire.Enabled = True      '可开火
         Open_Fire.Interval = 200
     End Sub
-    Private Sub InitBoss()
+    Public Sub InitBoss() 'boss初始化
         Boss.Image = Image.FromFile(Application.StartupPath + "\draw\boss.jpg")
         Boss_Move.Enabled = False 'Boss开局不存在
         Boss_Move.Interval = 1
@@ -34,8 +34,10 @@ Public Class Form2
         BossHP.Value = 500
         Boss_Laser1.Visible = False
         Boss_Laser2.Visible = False
+        Raser.Enabled = False
+        Raser.Interval = 10
     End Sub
-    Private Sub BuildTimeArray()
+    Public Sub BuildTimeArray() 'timer控件数组
         TimeList.Add(PLayer_Move)
         TimeList.Add(Open_Fire)
         TimeList.Add(Enemy_Move)
@@ -44,72 +46,63 @@ Public Class Form2
         TimeList.Add(Boss_Move)
         TimeList.Add(Raser)
     End Sub
-    Private Sub BuildEnemyArray()
+    Public Sub BuildEnemyArray() '敌机控件数组
         Enemy.Add(Enemy0)
         Enemy.Add(Enemy1)
         Enemy.Add(Enemy2)
     End Sub
-    Private Sub BuildBulletArray()
+    Public Sub BuildBulletArray() '子弹控件数组
         Bullet.Add(Bullet0)
         Bullet.Add(Bullet1)
         Bullet.Add(Bullet2)
         Bullet.Add(Bullet3)
     End Sub
-    Public Sub Lose() '退出游戏
+    Public Sub Lose() '输了退出游戏
         Pause_or_go()
         Me.Hide()
         MsgBox("挑战失败!")
         Me.Close()
     End Sub
-    Public Sub Win() '退出游戏
+    Public Sub Win() '赢了退出游戏
         Pause_or_go()
         Me.Hide()
         MsgBox("你赢了!")
         Me.Close()
     End Sub
-    Private Sub Pause_or_go() '暂停和继续
+    Public Sub Pause_or_go() '暂停和继续
         Dim i As Integer
         For i = 0 To 6 Step 1
             TimeList(i).Enabled = Not (TimeList(i).Enabled)
         Next
     End Sub
-    Private Sub Form2_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Public Sub InitBullet(type As String) '初始化子弹
+        Dim i As Integer
+        For i = 0 To 3 Step 1
+            Bullet(i).Image = Image.FromFile(Application.StartupPath + type)
+            Bullet(i).Visible = False
+        Next
+        Bullet_Move.Enabled = True '子弹可动
+        Bullet_Move.Interval = 1
+    End Sub
+    Public Sub InitEnemy(type As String) '初始化敌机
+        Dim i As Integer
+        For i = 0 To 2 Step 1
+            Enemy(i).Image = Image.FromFile(Application.StartupPath + type)
+            Enemy(i).visible = False
+        Next
+        Enemy_Move.Enabled = True '敌机可动
+        Enemy_Move.Interval = 10
+        Enemy_Reborn.Enabled = True '敌机刷新
+        Enemy_Reborn.Interval = 1000
+    End Sub
+    Private Sub Form2_Load(sender As Object, e As EventArgs) Handles MyBase.Load '主窗体加载
         BuildTimeArray()
         BuildBulletArray()
         BuildEnemyArray()
         InitPlayer()
         InitBoss()
-        Enemy0.Image = Image.FromFile(Application.StartupPath + "\draw\f2.jpg")
-        Enemy1.Image = Image.FromFile(Application.StartupPath + "\draw\f2.jpg")
-        Enemy2.Image = Image.FromFile(Application.StartupPath + "\draw\f2.jpg")
-        Bullet0.Image = Image.FromFile(Application.StartupPath + "\draw\z1.jpg")
-        Bullet1.Image = Image.FromFile(Application.StartupPath + "\draw\z1.jpg")
-        Bullet2.Image = Image.FromFile(Application.StartupPath + "\draw\z1.jpg")
-        Bullet3.Image = Image.FromFile(Application.StartupPath + "\draw\z1.jpg")
-        Dim i As Integer
-        For i = 0 To 3 Step 1
-            Bullet(i).Visible = False
-        Next
-        'Bullet0.Visible = False
-        'Bullet1.Visible = False
-        'Bullet2.Visible = False
-        'Bullet3.Visible = False
-        For i = 0 To 2 Step 1
-            Enemy(i).visible = False
-        Next
-
-        'Enemy0.Visible = False
-        'Enemy1.Visible = False
-        'Enemy2.Visible = False
-        Bullet_Move.Enabled = True '子弹可动
-        Bullet_Move.Interval = 1
-        Raser.Enabled = False
-        Raser.Interval = 10
-        Enemy_Move.Enabled = True '敌机可动
-        Enemy_Move.Interval = 10
-        Enemy_Reborn.Enabled = True '敌机刷新
-        Enemy_Reborn.Interval = 1000
-
+        InitEnemy("\draw\f2.jpg")
+        InitBullet("\draw\z1s.jpg")
         Time = 0
         Score = 0
     End Sub
@@ -253,7 +246,7 @@ Public Class Form2
         Time += 1
 
 
-        If Time Mod 60 = 0 And Boss.Visible = False Then
+        If (Time Mod 60 = 0 Or Score Mod 40 = 0) And Boss.Visible = False Then
             'Enemy_Reborn.Enabled = False
             InitBoss()
             Boss_Move.Enabled = True
@@ -279,29 +272,45 @@ Public Class Form2
         End If
     End Sub
 
-    '子弹飞行及其碰撞检查(中心距离检测法)
+    '子弹飞行及其碰撞检查
     Private Sub Bullet_Move_Tick(sender As Object, e As EventArgs) Handles Bullet_Move.Tick
-        Dim bx(4) As Integer '中心坐标
-        Dim by(4) As Integer
-        Dim ex(3) As Integer
-        Dim ey(3) As Integer
+        '(中心距离检测法)
+        'Dim bx(4) As Integer '中心坐标
+        'Dim by(4) As Integer
+        'Dim ex(3) As Integer
+        'Dim ey(3) As Integer
+        'Dim i As Integer
+        'For i = 0 To 3 Step 1
+        '    bx(i) = Bullet(i).Left + Bullet(i).Width / 2
+        '    by(i) = Bullet(i).Top + Bullet(i).Height / 2
+        'Next
+        'For i = 0 To 2 Step 1
+        '    ex(i) = Enemy(i).Left + Enemy(i).Width / 2
+        '    ey(i) = Enemy(i).Top + Enemy(i).Height / 2
+        'Next
+        'Dim j As Integer
+        'For i = 0 To 3 Step 1
+        '    For j = 0 To 2 Step 1
+        '        Dim dx As Integer
+        '        Dim dy As Integer
+        '        dx = bx(i) - ex(j)
+        '        dy = by(i) - ey(j)
+        '        If (System.Math.Sqrt(dx * dx + dy * dy) < 70) And (Bullet(i).visible = True) And Enemy(j).visible = True Then
+        '            Bullet(i).visible = False
+        '            Enemy(j).visible = False
+        '            Score += 1
+        '        End If
+        '    Next
+        'Next
+
+        '(重叠检测法)
         Dim i As Integer
-        For i = 0 To 3 Step 1
-            bx(i) = Bullet(i).Left + Bullet(i).Width / 2
-            by(i) = Bullet(i).Top + Bullet(i).Height / 2
-        Next
-        For i = 0 To 2 Step 1
-            ex(i) = Enemy(i).Left + Enemy(i).Width / 2
-            ey(i) = Enemy(i).Top + Enemy(i).Height / 2
-        Next
         Dim j As Integer
         For i = 0 To 3 Step 1
             For j = 0 To 2 Step 1
-                Dim dx As Integer
-                Dim dy As Integer
-                dx = bx(i) - ex(j)
-                dy = by(i) - ey(j)
-                If (System.Math.Sqrt(dx * dx + dy * dy) < 70) And (Bullet(i).visible = True) And Enemy(j).visible = True Then
+                If ((Bullet(i).Left < Enemy(j).Left + Enemy(j).Width) And (Bullet(i).Left + Bullet(i).Width > Enemy(j).Left) And
+                    (Bullet(i).Top < Enemy(j).Top + Enemy(j).Height) And (Bullet(i).Top + Bullet(i).Height > Enemy(j).Top) And
+                    Bullet(i).visible = True And Enemy(j).visible = True) Then
                     Bullet(i).visible = False
                     Enemy(j).visible = False
                     Score += 1

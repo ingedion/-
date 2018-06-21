@@ -66,6 +66,7 @@ Partial Class Form2
         Me.Enemy0.Location = New System.Drawing.Point(671, 27)
         Me.Enemy0.Name = "Enemy0"
         Me.Enemy0.Size = New System.Drawing.Size(100, 120)
+        Me.Enemy0.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
         Me.Enemy0.TabIndex = 0
         Me.Enemy0.TabStop = False
         '
@@ -74,6 +75,7 @@ Partial Class Form2
         Me.Bullet0.Location = New System.Drawing.Point(513, 781)
         Me.Bullet0.Name = "Bullet0"
         Me.Bullet0.Size = New System.Drawing.Size(60, 60)
+        Me.Bullet0.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
         Me.Bullet0.TabIndex = 1
         Me.Bullet0.TabStop = False
         '
@@ -82,6 +84,7 @@ Partial Class Form2
         Me.Bullet1.Location = New System.Drawing.Point(579, 781)
         Me.Bullet1.Name = "Bullet1"
         Me.Bullet1.Size = New System.Drawing.Size(60, 60)
+        Me.Bullet1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
         Me.Bullet1.TabIndex = 2
         Me.Bullet1.TabStop = False
         '
@@ -90,6 +93,7 @@ Partial Class Form2
         Me.Bullet3.Location = New System.Drawing.Point(711, 781)
         Me.Bullet3.Name = "Bullet3"
         Me.Bullet3.Size = New System.Drawing.Size(60, 60)
+        Me.Bullet3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
         Me.Bullet3.TabIndex = 3
         Me.Bullet3.TabStop = False
         '
@@ -98,6 +102,7 @@ Partial Class Form2
         Me.Enemy1.Location = New System.Drawing.Point(539, 170)
         Me.Enemy1.Name = "Enemy1"
         Me.Enemy1.Size = New System.Drawing.Size(100, 120)
+        Me.Enemy1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
         Me.Enemy1.TabIndex = 4
         Me.Enemy1.TabStop = False
         '
@@ -106,6 +111,7 @@ Partial Class Form2
         Me.Enemy2.Location = New System.Drawing.Point(539, 27)
         Me.Enemy2.Name = "Enemy2"
         Me.Enemy2.Size = New System.Drawing.Size(100, 120)
+        Me.Enemy2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
         Me.Enemy2.TabIndex = 5
         Me.Enemy2.TabStop = False
         '
@@ -114,6 +120,7 @@ Partial Class Form2
         Me.Bullet2.Location = New System.Drawing.Point(645, 781)
         Me.Bullet2.Name = "Bullet2"
         Me.Bullet2.Size = New System.Drawing.Size(60, 60)
+        Me.Bullet2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
         Me.Bullet2.TabIndex = 6
         Me.Bullet2.TabStop = False
         '
@@ -122,6 +129,7 @@ Partial Class Form2
         Me.Player.Location = New System.Drawing.Point(315, 666)
         Me.Player.Name = "Player"
         Me.Player.Size = New System.Drawing.Size(136, 175)
+        Me.Player.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
         Me.Player.TabIndex = 7
         Me.Player.TabStop = False
         '
@@ -207,6 +215,7 @@ Partial Class Form2
         Me.Boss.Location = New System.Drawing.Point(279, 12)
         Me.Boss.Name = "Boss"
         Me.Boss.Size = New System.Drawing.Size(200, 250)
+        Me.Boss.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
         Me.Boss.TabIndex = 14
         Me.Boss.TabStop = False
         '
@@ -239,6 +248,9 @@ Partial Class Form2
         Me.Boss_Laser2.Size = New System.Drawing.Size(40, 633)
         Me.Boss_Laser2.TabIndex = 17
         Me.Boss_Laser2.TabStop = False
+        '
+        'Raser
+        '
         '
         'Form2
         '
