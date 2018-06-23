@@ -10,3 +10,5 @@ G:\Documents\software_tec\大作业\飞机大战\飞机大战\飞机大战\obj\D
 G:\Documents\software_tec\大作业\飞机大战\飞机大战\飞机大战\obj\Debug\飞机大战.exe
 G:\Documents\software_tec\大作业\飞机大战\飞机大战\飞机大战\obj\Debug\飞机大战.xml
 G:\Documents\software_tec\大作业\飞机大战\飞机大战\飞机大战\obj\Debug\飞机大战.pdb
+G:\Documents\software_tec\大作业\飞机大战\飞机大战\飞机大战\obj\Debug\飞机大战.Form4.resources
+G:\Documents\software_tec\大作业\飞机大战\飞机大战\飞机大战\obj\Debug\飞机大战.Form5.resources
