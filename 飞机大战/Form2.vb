@@ -12,12 +12,13 @@ Public Class Form2
     Dim Ebul As New ArrayList '敌机子弹队列
     Dim B_N = 15
     Dim Baoz As Integer
+    Public Layer As Integer
     Public Time As Int32
     Public Score As Integer
 
     '玩家初始化,生命值，生命上限，攻击速度
     Public Sub InitPlayer(nhp As Integer, hpmax As Integer, ss As Integer)
-        Player.Image = Image.FromFile(Application.StartupPath + "\draw\f1.jpg")
+        Player.Image = Image.FromFile(Application.StartupPath + "\draw\f1.png")
         Player.Location = New Point(260, 560)
         HP.Maximum = hpmax
         HP.Value = nhp
@@ -33,6 +34,14 @@ Public Class Form2
         PLayer_Move.Interval = 1
         Open_Fire.Enabled = True      '可开火
         Open_Fire.Interval = ss
+
+        If Layer = 1 Then
+            Label2.Text = "外围"
+        ElseIf Layer = 2 Then
+            Label2.Text = "星港"
+        ElseIf Layer = 3 Then
+            Label2.Text = "核心"
+        End If
     End Sub
     '宝物初始化
     Public Sub InitBao()
@@ -41,7 +50,7 @@ Public Class Form2
     End Sub
     'boss初始化
     Public Sub InitBoss()
-        Boss.Image = Image.FromFile(Application.StartupPath + "\draw\boss.jpg")
+        Boss.Image = Image.FromFile(Application.StartupPath + "\draw\boss.png")
         Boss.Top = 0 - Boss.Height
         Boss_Move.Enabled = False 'Boss开局不存在
         Boss_Move.Interval = 1
@@ -61,7 +70,7 @@ Public Class Form2
             Bullet(i).Visible = False
         Next
         For i = 0 To 3 Step 1
-            Ebul(i).Image = Image.FromFile(Application.StartupPath + "\draw\z2s.jpg")
+            Ebul(i).Image = Image.FromFile(Application.StartupPath + "\draw\z2s.png")
             Ebul(i).Visible = False
         Next
         Bullet_Move.Enabled = True '子弹可动
@@ -148,12 +157,19 @@ Public Class Form2
             TimeList(i).Enabled = True
         Next
     End Sub
-    '强化选择
-    Public Sub Choose_One()
+    Public Sub Choose_One()   '强化选择
         Pause()
         Me.Hide()
         Form4.ShowDialog()
         Me.Show()
+    End Sub
+    Public Sub RandStr()
+        If Rnd(1) > 0.5 Then
+            HP.Value += 50
+            HP.Maximum += 50
+        Else
+            Open_Fire.Interval -= 50
+        End If
     End Sub
     Public Sub Init()
         BuildTimeArray()
@@ -162,24 +178,16 @@ Public Class Form2
         InitPlayer(100, 100, 300)
         InitBao()
         InitBoss()
-        InitEnemy("\draw\f2.jpg")
-        InitBullet("\draw\z1s.jpg")
+        InitEnemy("\draw\e1.png")
+        InitBullet("\draw\z1s.png")
         Time = 0
-        Score = 0
     End Sub
 
 
     Private Sub Form2_Load(sender As Object, e As EventArgs) Handles MyBase.Load '主窗体加载
+        Score = 0
+        Layer = 1
         Init()
-        'BuildTimeArray()
-        'BuildBulletArray()
-        'BuildEnemyArray()
-        'InitPlayer(100, 100, 300)
-        'InitBoss()
-        'InitEnemy("\draw\f2.jpg")
-        'InitBullet("\draw\z1s.jpg")
-        'Time = 0
-        'Score = 0
     End Sub
     '-----------------事件捕捉----------------------
 
@@ -221,8 +229,9 @@ Public Class Form2
 
     Private Sub Form2_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress '全屏大招
         If e.KeyChar = "k" Then
-            Win()
-            'InitEnemy("\draw\f2.jpg")
+            'Win()
+            InitEnemy("\draw\f2.jpg")
+            BossHP.Value = 0
         End If
     End Sub
     '-----------------屏幕刷新----------------------
@@ -288,7 +297,7 @@ Public Class Form2
 
         HPN.Text = HP.Value
         Label4.Text = Score
-        Label2.Text = Time
+        'Label2.Text = Time
     End Sub
 
     '敌机飞行与开火
@@ -345,7 +354,7 @@ Public Class Form2
         'End If
 
 
-        If (Time = 60) And (Boss.Visible = False) Then
+        If (Time Mod 60 = 59) And (Boss.Visible = False) Then
             Enemy_Reborn.Enabled = False
             InitBoss()
             Boss_Move.Enabled = True
@@ -418,7 +427,7 @@ Public Class Form2
                     If Bao.Visible = False Then
                         If (x > 0.95) Then
                             Bao.Visible = True
-                            Bao.Image = Image.FromFile(Application.StartupPath + "\draw\bao1.jpg")
+                            Bao.Image = Image.FromFile(Application.StartupPath + "\draw\bao1.png")
                             Bao.Left = Enemy(j).Left
                             Bao.Top = Enemy(j).Top
                             Baoz = 1
@@ -426,7 +435,7 @@ Public Class Form2
                         x = Rnd(2)
                         If (x > 0.8) And (Bao.Visible = True) Then
                             Bao.Visible = True
-                            Bao.Image = Image.FromFile(Application.StartupPath + "\draw\bao2.jpg")
+                            Bao.Image = Image.FromFile(Application.StartupPath + "\draw\bao2.png")
                             Bao.Left = Enemy(j).Left
                             Bao.Top = Enemy(j).Top
                             Baoz = 2
@@ -476,7 +485,7 @@ Public Class Form2
                     HP.Value = HP.Maximum
                 End If
             ElseIf Baoz = 2 Then
-                Choose_One()
+                RandStr()
             End If
         End If
         If Bao.Visible = True Then '飞行

@@ -72,7 +72,7 @@ Partial Class Form4
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(312, 73)
         Me.Label1.TabIndex = 3
-        Me.Label1.Text = "选择强化"
+        Me.Label1.Text = "选择宝物"
         '
         'Label2
         '

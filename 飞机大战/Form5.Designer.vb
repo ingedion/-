@@ -27,6 +27,7 @@ Partial Class Form5
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Label1
@@ -79,6 +80,16 @@ Partial Class Form5
         Me.Label3.TabIndex = 4
         Me.Label3.Text = "100"
         '
+        'Button3
+        '
+        Me.Button3.Font = New System.Drawing.Font("华文彩云", 16.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.Button3.Location = New System.Drawing.Point(76, 152)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(241, 83)
+        Me.Button3.TabIndex = 5
+        Me.Button3.Text = "选择宝藏继续挑战"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
         'Form5
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 15.0!)
@@ -89,6 +100,7 @@ Partial Class Form5
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.Button3)
         Me.Name = "Form5"
         Me.Text = "Form5"
         Me.ResumeLayout(False)
@@ -101,4 +113,5 @@ Partial Class Form5
     Friend WithEvents Button2 As Button
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
+    Friend WithEvents Button3 As Button
 End Class

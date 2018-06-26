@@ -67,9 +67,9 @@ Partial Class Form1
         Me.Label2.Font = New System.Drawing.Font("华文彩云", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.Label2.Location = New System.Drawing.Point(48, 101)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(286, 104)
+        Me.Label2.Size = New System.Drawing.Size(287, 104)
         Me.Label2.TabIndex = 3
-        Me.Label2.Text = "使用WSAD键控制飞机" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "方向，J键发射子弹。击" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "落敌机，60秒后boss登场" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "消灭最终boss取得胜利。"
+        Me.Label2.Text = "使用WSAD键控制飞机" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "方向，J键发射子弹。击" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "落敌机，消灭首领强化自" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "己，攻入核心获得胜利。"
         Me.Label2.Visible = False
         '
         'Button3

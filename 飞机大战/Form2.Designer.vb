@@ -181,17 +181,17 @@ Partial Class Form2
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("楷体", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.Label1.Location = New System.Drawing.Point(16, 801)
+        Me.Label1.Location = New System.Drawing.Point(11, 782)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(69, 20)
+        Me.Label1.Size = New System.Drawing.Size(49, 20)
         Me.Label1.TabIndex = 8
-        Me.Label1.Text = "时间："
+        Me.Label1.Text = "地点"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("楷体", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.Label2.Location = New System.Drawing.Point(74, 801)
+        Me.Label2.Location = New System.Drawing.Point(72, 782)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(39, 20)
         Me.Label2.TabIndex = 9
@@ -207,7 +207,7 @@ Partial Class Form2
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("楷体", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.Label3.Location = New System.Drawing.Point(16, 829)
+        Me.Label3.Location = New System.Drawing.Point(10, 829)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(69, 20)
         Me.Label3.TabIndex = 10
@@ -227,7 +227,7 @@ Partial Class Form2
         '
         Me.HP.BackColor = System.Drawing.Color.White
         Me.HP.ForeColor = System.Drawing.Color.DimGray
-        Me.HP.Location = New System.Drawing.Point(53, 775)
+        Me.HP.Location = New System.Drawing.Point(49, 808)
         Me.HP.Name = "HP"
         Me.HP.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.HP.Size = New System.Drawing.Size(130, 18)
@@ -238,7 +238,7 @@ Partial Class Form2
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("楷体", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.Label5.Location = New System.Drawing.Point(19, 773)
+        Me.Label5.Location = New System.Drawing.Point(15, 807)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(29, 20)
         Me.Label5.TabIndex = 13
@@ -436,7 +436,7 @@ Partial Class Form2
         Me.HPN.AutoSize = True
         Me.HPN.BackColor = System.Drawing.SystemColors.MenuHighlight
         Me.HPN.ForeColor = System.Drawing.Color.Black
-        Me.HPN.Location = New System.Drawing.Point(99, 776)
+        Me.HPN.Location = New System.Drawing.Point(95, 810)
         Me.HPN.Name = "HPN"
         Me.HPN.Size = New System.Drawing.Size(31, 15)
         Me.HPN.TabIndex = 34
