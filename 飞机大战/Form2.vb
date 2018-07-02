@@ -165,8 +165,8 @@ Public Class Form2
     End Sub
     Public Sub RandStr()
         If Rnd(1) > 0.5 Then
-            HP.Value += 50
             HP.Maximum += 50
+            HP.Value += 50
         Else
             Open_Fire.Interval -= 50
         End If
@@ -227,13 +227,13 @@ Public Class Form2
         End If
     End Sub
 
-    Private Sub Form2_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress '全屏大招
-        If e.KeyChar = "k" Then
-            'Win()
-            InitEnemy("\draw\f2.jpg")
-            BossHP.Value = 0
-        End If
-    End Sub
+    'Private Sub Form2_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress '全屏大招
+    '    If e.KeyChar = "+" Then
+    '        Win()
+    '        InitEnemy("\draw\f2.jpg")
+    '        BossHP.Value = 0
+    '    End If
+    'End Sub
     '-----------------屏幕刷新----------------------
     '玩家飞行及碰撞检查
     Private Sub PLayer_Move_Tick(sender As Object, e As EventArgs) Handles PLayer_Move.Tick
@@ -354,7 +354,7 @@ Public Class Form2
         'End If
 
 
-        If (Time Mod 60 = 59) And (Boss.Visible = False) Then
+        If (Time Mod 20 = 19) And (Boss.Visible = False) Then
             Enemy_Reborn.Enabled = False
             InitBoss()
             Boss_Move.Enabled = True

@@ -2,6 +2,7 @@
     Private Sub Form5_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If Form2.HP.Value = 0 Then
             Label1.Text = "挑战失败"
+            Button3.Visible = False
         ElseIf Form2.Layer < 3 Then
             Label1.Text = "击败首领"
             Button1.Visible = False
